@@ -1,0 +1,58 @@
+﻿@model VehiculosWebApp.Models.ALQUILER
+
+@{
+    ViewBag.Title = "Detalles";
+}
+
+<h2>Detalles</h2>
+
+<div>
+    <h4>ALQUILER</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Localizacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Localizacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaDeEntrega)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaDeEntrega)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaDeDevolucion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaDeDevolucion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CLIENTE.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CLIENTE.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VEHICULO.Marca)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VEHICULO.Marca)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.IdAlquiler }) |
+    @Html.ActionLink("Regresar", "Index")
+</p>

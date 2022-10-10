@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DBVEHICULOSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ALQUILER">
+          <Key>
+            <PropertyRef Name="IdAlquiler" />
+          </Key>
+          <Property Name="IdAlquiler" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Localizacion" Type="varchar" MaxLength="60" />
+          <Property Name="FechaDeEntrega" Type="datetime" />
+          <Property Name="FechaDeDevolucion" Type="datetime" />
+          <Property Name="FK_IdClientes" Type="int" />
+          <Property Name="FK_Placa" Type="int" />
+        </EntityType>
+        <EntityType Name="CLIENTES">
+          <Key>
+            <PropertyRef Name="IdClientes" />
+          </Key>
+          <Property Name="IdClientes" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="60" />
+          <Property Name="Pais" Type="varchar" MaxLength="40" />
+          <Property Name="Dni" Type="varchar" MaxLength="20" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Telefono" Type="int" />
+          <Property Name="MetodoPago" Type="varchar" MaxLength="15" />
+          <Property Name="FechaRegistro" Type="datetime" />
+        </EntityType>
+        <EntityType Name="VEHICULOS">
+          <Key>
+            <PropertyRef Name="Placa" />
+          </Key>
+          <Property Name="Placa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Marca" Type="varchar" MaxLength="20" />
+          <Property Name="Modelo" Type="varchar" MaxLength="30" />
+          <Property Name="Color" Type="varchar" MaxLength="15" />
+          <Property Name="Pasajeros" Type="int" />
+        </EntityType>
+        <Association Name="FK__ALQUILER__FK_IdC__2A4B4B5E">
+          <End Role="CLIENTES" Type="Self.CLIENTES" Multiplicity="0..1" />
+          <End Role="ALQUILER" Type="Self.ALQUILER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTES">
+              <PropertyRef Name="IdClientes" />
+            </Principal>
+            <Dependent Role="ALQUILER">
+              <PropertyRef Name="FK_IdClientes" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ALQUILER__FK_Pla__2B3F6F97">
+          <End Role="VEHICULOS" Type="Self.VEHICULOS" Multiplicity="0..1" />
+          <End Role="ALQUILER" Type="Self.ALQUILER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VEHICULOS">
+              <PropertyRef Name="Placa" />
+            </Principal>
+            <Dependent Role="ALQUILER">
+              <PropertyRef Name="FK_Placa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="sp_FechaDevolucion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FechaInicio" Type="date" Mode="In" />
+          <Parameter Name="FechaFin" Type="date" Mode="In" />
+        </Function>
+        <Function Name="sp_FechaEntrega" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FechaInicio" Type="date" Mode="In" />
+          <Parameter Name="FechaFin" Type="date" Mode="In" />
+        </Function>
+        <EntityContainer Name="DBVEHICULOSModelStoreContainer">
+          <EntitySet Name="ALQUILER" EntityType="Self.ALQUILER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CLIENTES" EntityType="Self.CLIENTES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VEHICULOS" EntityType="Self.VEHICULOS" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__ALQUILER__FK_IdC__2A4B4B5E" Association="Self.FK__ALQUILER__FK_IdC__2A4B4B5E">
+            <End Role="CLIENTES" EntitySet="CLIENTES" />
+            <End Role="ALQUILER" EntitySet="ALQUILER" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ALQUILER__FK_Pla__2B3F6F97" Association="Self.FK__ALQUILER__FK_Pla__2B3F6F97">
+            <End Role="VEHICULOS" EntitySet="VEHICULOS" />
+            <End Role="ALQUILER" EntitySet="ALQUILER" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBVEHICULOSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ALQUILER">
+          <Key>
+            <PropertyRef Name="IdAlquiler" />
+          </Key>
+          <Property Name="IdAlquiler" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Localizacion" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="FechaDeEntrega" Type="DateTime" Precision="3" />
+          <Property Name="FechaDeDevolucion" Type="DateTime" Precision="3" />
+          <Property Name="FK_IdClientes" Type="Int32" />
+          <Property Name="FK_Placa" Type="Int32" />
+          <NavigationProperty Name="CLIENTE" Relationship="Self.FK__ALQUILER__FK_IdC__2A4B4B5E" FromRole="ALQUILER" ToRole="CLIENTES" />
+          <NavigationProperty Name="VEHICULO" Relationship="Self.FK__ALQUILER__FK_Pla__2B3F6F97" FromRole="ALQUILER" ToRole="VEHICULOS" />
+        </EntityType>
+        <EntityType Name="CLIENTE">
+          <Key>
+            <PropertyRef Name="IdClientes" />
+          </Key>
+          <Property Name="IdClientes" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="Pais" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Dni" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="Int32" />
+          <Property Name="MetodoPago" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="FechaRegistro" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ALQUILERs" Relationship="Self.FK__ALQUILER__FK_IdC__2A4B4B5E" FromRole="CLIENTES" ToRole="ALQUILER" />
+        </EntityType>
+        <EntityType Name="VEHICULO">
+          <Key>
+            <PropertyRef Name="Placa" />
+          </Key>
+          <Property Name="Placa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Marca" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Modelo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Color" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Pasajeros" Type="Int32" />
+          <NavigationProperty Name="ALQUILERs" Relationship="Self.FK__ALQUILER__FK_Pla__2B3F6F97" FromRole="VEHICULOS" ToRole="ALQUILER" />
+        </EntityType>
+        <Association Name="FK__ALQUILER__FK_IdC__2A4B4B5E">
+          <End Role="CLIENTES" Type="Self.CLIENTE" Multiplicity="0..1" />
+          <End Role="ALQUILER" Type="Self.ALQUILER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTES">
+              <PropertyRef Name="IdClientes" />
+            </Principal>
+            <Dependent Role="ALQUILER">
+              <PropertyRef Name="FK_IdClientes" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ALQUILER__FK_Pla__2B3F6F97">
+          <End Role="VEHICULOS" Type="Self.VEHICULO" Multiplicity="0..1" />
+          <End Role="ALQUILER" Type="Self.ALQUILER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VEHICULOS">
+              <PropertyRef Name="Placa" />
+            </Principal>
+            <Dependent Role="ALQUILER">
+              <PropertyRef Name="FK_Placa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBVEHICULOSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ALQUILERs" EntityType="Self.ALQUILER" />
+          <EntitySet Name="CLIENTES" EntityType="Self.CLIENTE" />
+          <EntitySet Name="VEHICULOS" EntityType="Self.VEHICULO" />
+          <AssociationSet Name="FK__ALQUILER__FK_IdC__2A4B4B5E" Association="Self.FK__ALQUILER__FK_IdC__2A4B4B5E">
+            <End Role="CLIENTES" EntitySet="CLIENTES" />
+            <End Role="ALQUILER" EntitySet="ALQUILERs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ALQUILER__FK_Pla__2B3F6F97" Association="Self.FK__ALQUILER__FK_Pla__2B3F6F97">
+            <End Role="VEHICULOS" EntitySet="VEHICULOS" />
+            <End Role="ALQUILER" EntitySet="ALQUILERs" />
+          </AssociationSet>
+          <FunctionImport Name="sp_FechaDevolucion" ReturnType="Collection(DateTime)">
+            <Parameter Name="FechaInicio" Mode="In" Type="DateTime" />
+            <Parameter Name="FechaFin" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="sp_FechaEntrega" ReturnType="Collection(DateTime)">
+            <Parameter Name="FechaInicio" Mode="In" Type="DateTime" />
+            <Parameter Name="FechaFin" Mode="In" Type="DateTime" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBVEHICULOSModelStoreContainer" CdmEntityContainer="DBVEHICULOSEntities">
+          <EntitySetMapping Name="ALQUILERs">
+            <EntityTypeMapping TypeName="DBVEHICULOSModel.ALQUILER">
+              <MappingFragment StoreEntitySet="ALQUILER">
+                <ScalarProperty Name="IdAlquiler" ColumnName="IdAlquiler" />
+                <ScalarProperty Name="Localizacion" ColumnName="Localizacion" />
+                <ScalarProperty Name="FechaDeEntrega" ColumnName="FechaDeEntrega" />
+                <ScalarProperty Name="FechaDeDevolucion" ColumnName="FechaDeDevolucion" />
+                <ScalarProperty Name="FK_IdClientes" ColumnName="FK_IdClientes" />
+                <ScalarProperty Name="FK_Placa" ColumnName="FK_Placa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CLIENTES">
+            <EntityTypeMapping TypeName="DBVEHICULOSModel.CLIENTE">
+              <MappingFragment StoreEntitySet="CLIENTES">
+                <ScalarProperty Name="IdClientes" ColumnName="IdClientes" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Pais" ColumnName="Pais" />
+                <ScalarProperty Name="Dni" ColumnName="Dni" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="MetodoPago" ColumnName="MetodoPago" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VEHICULOS">
+            <EntityTypeMapping TypeName="DBVEHICULOSModel.VEHICULO">
+              <MappingFragment StoreEntitySet="VEHICULOS">
+                <ScalarProperty Name="Placa" ColumnName="Placa" />
+                <ScalarProperty Name="Marca" ColumnName="Marca" />
+                <ScalarProperty Name="Modelo" ColumnName="Modelo" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="Pasajeros" ColumnName="Pasajeros" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_FechaDevolucion" FunctionName="DBVEHICULOSModel.Store.sp_FechaDevolucion" />
+          <FunctionImportMapping FunctionImportName="sp_FechaEntrega" FunctionName="DBVEHICULOSModel.Store.sp_FechaEntrega" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
